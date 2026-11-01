@@ -1,0 +1,57 @@
+# Agent Recall Lab
+
+Can a coding agent avoid repeating a mistake when a previous session's lesson is
+retrieved **before** it runs a command?
+
+A small, local-first memory service and evaluation lab inspired by
+[Agent Beacon](https://github.com/Asymptote-Labs/agent-beacon). Original implementation;
+not affiliated with Asymptote Labs. Python 3.11+, SQLite, reproducible synthetic data.
+
+## What works today
+
+- Validated canonical traces with lightweight credential redaction and duplicate detection.
+- SQLite storage of traces, evidence-linked candidates, and explicitly reviewed memories.
+- A deterministic correction-extraction baseline; this is **not LLM extraction**.
+- Project-scoped keyword retrieval of approved memory only.
+- Eight synthetic traces, separate evaluation queries, tests, and a retrieval baseline.
+
+MCP, native agent adapters, a pre-command recall loop, and execution experiments are
+not implemented yet.
+
+## Run
+
+```bash
+uv sync --locked --extra dev
+uv run recall ingest examples/traces/*.json
+uv run recall distill
+uv run recall list
+# Inspect a candidate and its source trace before approving its displayed ID:
+uv run recall review <candidate-id> approved
+uv run recall search --project storefront 'integration tests generated client'
+uv run pytest -q
+uv run python experiments/retrieval_baseline.py
+```
+
+Every trace is invented. Fixture commands are evidence text and never executed.
+The redactor is a small baseline, not a comprehensive secret detector.
+
+## Architecture
+
+```mermaid
+flowchart LR
+  T[Synthetic traces] --> V[Validate and redact]
+  V --> S[SQLite traces]
+  S --> C[Correction candidates]
+  C --> R[Explicit review]
+  R --> M[Approved memory]
+  M --> Q[Project-scoped retrieval]
+```
+
+## Experiments and limits
+
+[Baseline results](experiments/results/retrieval-baseline.md) measure retrieval against
+curated synthetic lessons. They do not establish that an LLM follows those lessons,
+that tests pass more often, or that tokens are saved. Evaluation ground truth is
+kept outside trace files. See [dataset notes](examples/README.md).
+
+License: MIT. No upstream code has been copied.

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "id": "python-path",
+  "project": "analytics",
+  "harness": "codex",
+  "events": [
+    {
+      "id": "e1",
+      "action": "prompt",
+      "text": "Investigate the failing development task."
+    },
+    {
+      "id": "e2",
+      "action": "command",
+      "text": "pytest tests\nModuleNotFoundError: analytics",
+      "exit_code": 1
+    },
+    {
+      "id": "e3",
+      "action": "correction",
+      "text": "For analytics Python tests, use python -m pytest from the repository root so imports resolve."
+    },
+    {
+      "id": "e4",
+      "action": "command",
+      "text": "python -m pytest tests",
+      "exit_code": 0
+    }
+  ]
+}

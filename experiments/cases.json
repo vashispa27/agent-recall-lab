@@ -1,0 +1,50 @@
+[
+  {
+    "id": "client",
+    "project": "storefront",
+    "query": "integration tests generated client",
+    "expected_trace": "generated-client"
+  },
+  {
+    "id": "python",
+    "project": "analytics",
+    "query": "Python tests imports resolve",
+    "expected_trace": "python-path"
+  },
+  {
+    "id": "packages",
+    "project": "storefront",
+    "query": "pnpm dependency installation lockfile",
+    "expected_trace": "package-manager"
+  },
+  {
+    "id": "database",
+    "project": "billing",
+    "query": "database integration alembic schema",
+    "expected_trace": "database-schema"
+  },
+  {
+    "id": "env",
+    "project": "billing",
+    "query": "unit tests APP_ENV",
+    "expected_trace": "environment"
+  },
+  {
+    "id": "wrong-project",
+    "project": "unknown-project",
+    "query": "integration tests generated client",
+    "expected_trace": null
+  },
+  {
+    "id": "irrelevant",
+    "project": "storefront",
+    "query": "kubernetes ingress certificates",
+    "expected_trace": null
+  },
+  {
+    "id": "paraphrase",
+    "project": "storefront",
+    "query": "API bindings absent following model edits",
+    "expected_trace": "generated-client"
+  }
+]

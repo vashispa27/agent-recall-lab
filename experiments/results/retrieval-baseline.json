@@ -1,0 +1,75 @@
+{
+  "evidence_type": "synthetic_retrieval_only",
+  "dataset_sha256": "0f950db9dbeab353548226caa41d3820d1ff7ca7f3eebffdc24ce07ca77c9be1",
+  "trace_count": 8,
+  "candidate_count": 6,
+  "approved_count": 5,
+  "cases": [
+    {
+      "id": "client",
+      "project": "storefront",
+      "query": "integration tests generated client",
+      "expected_trace": "generated-client",
+      "predicted_trace": "generated-client",
+      "correct": true
+    },
+    {
+      "id": "python",
+      "project": "analytics",
+      "query": "Python tests imports resolve",
+      "expected_trace": "python-path",
+      "predicted_trace": "python-path",
+      "correct": true
+    },
+    {
+      "id": "packages",
+      "project": "storefront",
+      "query": "pnpm dependency installation lockfile",
+      "expected_trace": "package-manager",
+      "predicted_trace": "package-manager",
+      "correct": true
+    },
+    {
+      "id": "database",
+      "project": "billing",
+      "query": "database integration alembic schema",
+      "expected_trace": "database-schema",
+      "predicted_trace": "database-schema",
+      "correct": true
+    },
+    {
+      "id": "env",
+      "project": "billing",
+      "query": "unit tests APP_ENV",
+      "expected_trace": "environment",
+      "predicted_trace": "environment",
+      "correct": true
+    },
+    {
+      "id": "wrong-project",
+      "project": "unknown-project",
+      "query": "integration tests generated client",
+      "expected_trace": null,
+      "predicted_trace": null,
+      "correct": true
+    },
+    {
+      "id": "irrelevant",
+      "project": "storefront",
+      "query": "kubernetes ingress certificates",
+      "expected_trace": null,
+      "predicted_trace": null,
+      "correct": true
+    },
+    {
+      "id": "paraphrase",
+      "project": "storefront",
+      "query": "API bindings absent following model edits",
+      "expected_trace": "generated-client",
+      "predicted_trace": null,
+      "correct": false
+    }
+  ],
+  "positive_top1_accuracy": 0.8333333333333334,
+  "negative_abstention_accuracy": 1.0
+}

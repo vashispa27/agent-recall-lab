@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "id": "environment",
+  "project": "billing",
+  "harness": "codex",
+  "events": [
+    {
+      "id": "e1",
+      "action": "prompt",
+      "text": "Investigate the failing development task."
+    },
+    {
+      "id": "e2",
+      "action": "command",
+      "text": "python -m pytest tests/unit\nMissing APP_ENV",
+      "exit_code": 1
+    },
+    {
+      "id": "e3",
+      "action": "correction",
+      "text": "For billing unit tests, set APP_ENV=test before running python -m pytest tests/unit."
+    },
+    {
+      "id": "e4",
+      "action": "command",
+      "text": "APP_ENV=test python -m pytest tests/unit",
+      "exit_code": 0
+    }
+  ]
+}

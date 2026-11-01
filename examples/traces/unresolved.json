@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "id": "unresolved",
+  "project": "storefront",
+  "harness": "claude",
+  "events": [
+    {
+      "id": "e1",
+      "action": "prompt",
+      "text": "Investigate the failing development task."
+    },
+    {
+      "id": "e2",
+      "action": "command",
+      "text": "npm run build\nBuild failed: missing generated client",
+      "exit_code": 1
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "id": "database-schema",
+  "project": "billing",
+  "harness": "claude",
+  "events": [
+    {
+      "id": "e1",
+      "action": "prompt",
+      "text": "Investigate the failing development task."
+    },
+    {
+      "id": "e2",
+      "action": "command",
+      "text": "python -m pytest tests/integration\nMissing table invoices",
+      "exit_code": 1
+    },
+    {
+      "id": "e3",
+      "action": "correction",
+      "text": "For billing database integration tests, run alembic upgrade head against the disposable test database first."
+    },
+    {
+      "id": "e4",
+      "action": "command",
+      "text": "alembic upgrade head && python -m pytest tests/integration",
+      "exit_code": 0
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.venv/
+*.egg-info/
+.recall/
+*.db
+*.db-shm
+*.db-wal
+.env
+.env.*
+.DS_Store

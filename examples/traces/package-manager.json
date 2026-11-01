@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "id": "package-manager",
+  "project": "storefront",
+  "harness": "codex",
+  "events": [
+    {
+      "id": "e1",
+      "action": "prompt",
+      "text": "Investigate the failing development task."
+    },
+    {
+      "id": "e2",
+      "action": "command",
+      "text": "npm install\nLockfile mismatch",
+      "exit_code": 1
+    },
+    {
+      "id": "e3",
+      "action": "correction",
+      "text": "For storefront dependency installation, use pnpm install --frozen-lockfile; this repository uses pnpm."
+    },
+    {
+      "id": "e4",
+      "action": "command",
+      "text": "pnpm install --frozen-lockfile",
+      "exit_code": 0
+    }
+  ]
+}
