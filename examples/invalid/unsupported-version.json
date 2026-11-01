@@ -1,0 +1,8 @@
+{
+  "schema_version": 2,
+  "synthetic": true,
+  "id": "unsupported-version",
+  "project": "fixture",
+  "harness": "canonical",
+  "events": [{"id": "e1", "action": "prompt", "text": "Invented invalid input"}]
+}

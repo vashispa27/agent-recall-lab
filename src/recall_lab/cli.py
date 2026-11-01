@@ -26,7 +26,7 @@ def main():
     store = Store(args.db)
     try:
         if args.command == "ingest":
-            result = {"inserted": sum(store.ingest(load_trace(path)) for path in args.paths)}
+            result = {"inserted": store.ingest_batch(load_trace(path) for path in args.paths)}
         elif args.command == "distill":
             result = {"candidates_created": store.distill()}
         elif args.command == "list":

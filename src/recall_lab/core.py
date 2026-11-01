@@ -3,40 +3,55 @@
 Capture data is untrusted evidence. It is never executed by this module.
 """
 
+import copy
 import hashlib
 import json
 import re
 import sqlite3
+from importlib.resources import files
 from pathlib import Path
 
-ACTIONS = {"prompt", "command", "correction", "response"}
+from jsonschema import Draft202012Validator
+
+TRACE_SCHEMA = json.loads(files("recall_lab").joinpath("schemas/trace.schema.json").read_text())
+TRACE_VALIDATOR = Draft202012Validator(TRACE_SCHEMA)
 
 
 def redact(text: str) -> str:
     return re.sub(r"(?i)(api[_-]?key|token|password)=([^\s]+)", r"\1=[REDACTED]", text)
 
 
-def load_trace(path: Path) -> dict:
-    trace = json.loads(path.read_text())
-    for key in ("id", "project", "harness"):
-        if not isinstance(trace.get(key), str) or not trace[key].strip():
-            raise ValueError(f"Missing trace field: {key}")
-    events = trace.get("events")
-    if not isinstance(events, list) or not events:
-        raise ValueError("Trace requires events")
+def validate_trace(trace: object) -> dict:
+    """Validate and copy untrusted input; never persist unknown fields or raw text.
+
+    The schema describes structural rules. Event identity uniqueness is an additional
+    semantic constraint, required to keep evidence links unambiguous.
+    """
+    error = next(TRACE_VALIDATOR.iter_errors(trace), None)
+    if error is not None:
+        location = ".".join(map(str, error.absolute_path)) or "trace"
+        # Avoid echoing untrusted values (which can contain credentials).
+        raise ValueError(f"Invalid trace at {location}: schema rule {error.validator}")
+    normalized = copy.deepcopy(trace)
     seen = set()
-    for event in events:
-        if not isinstance(event, dict):
-            raise TypeError("Event must be an object")
-        if not isinstance(event.get("id"), str) or event["id"] in seen:
+    for event in normalized["events"]:
+        if event["id"] in seen:
             raise ValueError("Event IDs must be unique strings")
         seen.add(event["id"])
-        if event.get("action") not in ACTIONS or not isinstance(event.get("text"), str):
-            raise ValueError("Invalid event action or text")
-        if event["action"] == "command" and type(event.get("exit_code")) is not int:
-            raise ValueError("Command needs an integer exit_code")
         event["text"] = redact(event["text"])
-    return trace
+    return normalized
+
+
+def load_trace(path: Path) -> dict:
+    def unique_keys(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError("Duplicate JSON object key")
+            result[key] = value
+        return result
+
+    return validate_trace(json.loads(path.read_text(), object_pairs_hook=unique_keys))
 
 
 def tokenize(text: str) -> set[str]:
@@ -63,17 +78,31 @@ class Store:
         self.db.close()
 
     def ingest(self, trace: dict) -> bool:
-        payload = json.dumps(trace, sort_keys=True)
-        old = self.db.execute("SELECT payload FROM traces WHERE id=?", (trace["id"],)).fetchone()
-        if old:
-            if old["payload"] != payload:
-                raise ValueError(f"Conflicting content for trace {trace['id']}")
-            return False
+        return bool(self.ingest_batch([trace]))
+
+    def ingest_batch(self, traces) -> int:
+        """Import all inputs in one transaction, including lazily loaded files.
+
+        A malformed input or conflicting ID rolls back every insert in the batch.
+        Existing identical redacted traces are idempotent duplicates.
+        """
+        inserted = 0
         with self.db:
-            self.db.execute(
-                "INSERT INTO traces VALUES (?, ?, ?)", (trace["id"], trace["project"], payload)
-            )
-        return True
+            for trace in traces:
+                trace = validate_trace(trace)
+                payload = json.dumps(trace, sort_keys=True)
+                old = self.db.execute(
+                    "SELECT payload FROM traces WHERE id=?", (trace["id"],)
+                ).fetchone()
+                if old:
+                    if old["payload"] != payload:
+                        raise ValueError("Conflicting content for trace ID")
+                    continue
+                self.db.execute(
+                    "INSERT INTO traces VALUES (?, ?, ?)", (trace["id"], trace["project"], payload)
+                )
+                inserted += 1
+        return inserted
 
     def distill(self) -> int:
         """Rule baseline: retain an explicit correction between failure and success.

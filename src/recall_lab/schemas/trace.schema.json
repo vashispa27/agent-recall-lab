@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Synthetic canonical trace v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "synthetic", "id", "project", "harness", "events"],
+  "properties": {
+    "schema_version": {"type": "integer", "const": 1},
+    "synthetic": {"type": "boolean", "const": true},
+    "id": {"$ref": "#/$defs/identifier"},
+    "project": {"$ref": "#/$defs/identifier"},
+    "harness": {"$ref": "#/$defs/identifier"},
+    "events": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "action", "text"],
+        "properties": {
+          "id": {"$ref": "#/$defs/identifier"},
+          "action": {"enum": ["prompt", "command", "correction", "response"]},
+          "text": {"type": "string"},
+          "exit_code": {"type": "integer"}
+        },
+        "if": {"properties": {"action": {"const": "command"}}},
+        "then": {"required": ["exit_code"]},
+        "else": {"not": {"required": ["exit_code"]}}
+      }
+    }
+  },
+  "$defs": {
+    "identifier": {"type": "string", "minLength": 1, "pattern": "\\S"}
+  }
+}

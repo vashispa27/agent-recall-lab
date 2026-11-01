@@ -1,0 +1,94 @@
+{
+  "evidence_type": "local_cli_ingestion_only",
+  "dataset_sha256": "2a8cc33d72aed388313260de982d5d328f87947aded66cd3c773d7d204aee778",
+  "sources": [
+    "examples/invalid/duplicate-events.json",
+    "examples/invalid/unsupported-version.json",
+    "examples/traces/generated-client.json"
+  ],
+  "derived_inputs": {
+    "conflict.json": "Copy valid trace and replace first event text with Different synthetic content",
+    "malformed.json": "Literal {\"unfinished\":"
+  },
+  "cases": [
+    {
+      "case": "valid",
+      "inputs": [
+        "examples/traces/generated-client.json"
+      ],
+      "expected_success": true,
+      "actual_success": true,
+      "expected_trace_count": 1,
+      "actual_trace_count": 1,
+      "memory_count": 0,
+      "passed": true
+    },
+    {
+      "case": "identical_duplicates",
+      "inputs": [
+        "examples/traces/generated-client.json",
+        "examples/traces/generated-client.json"
+      ],
+      "expected_success": true,
+      "actual_success": true,
+      "expected_trace_count": 1,
+      "actual_trace_count": 1,
+      "memory_count": 0,
+      "passed": true
+    },
+    {
+      "case": "invalid_version_rolls_back",
+      "inputs": [
+        "examples/traces/generated-client.json",
+        "examples/invalid/unsupported-version.json"
+      ],
+      "expected_success": false,
+      "actual_success": false,
+      "expected_trace_count": 0,
+      "actual_trace_count": 0,
+      "memory_count": 0,
+      "passed": true
+    },
+    {
+      "case": "duplicate_event_ids_roll_back",
+      "inputs": [
+        "examples/traces/generated-client.json",
+        "examples/invalid/duplicate-events.json"
+      ],
+      "expected_success": false,
+      "actual_success": false,
+      "expected_trace_count": 0,
+      "actual_trace_count": 0,
+      "memory_count": 0,
+      "passed": true
+    },
+    {
+      "case": "conflicting_trace_rolls_back",
+      "inputs": [
+        "examples/traces/generated-client.json",
+        "conflict.json"
+      ],
+      "expected_success": false,
+      "actual_success": false,
+      "expected_trace_count": 0,
+      "actual_trace_count": 0,
+      "memory_count": 0,
+      "passed": true
+    },
+    {
+      "case": "malformed_json_rolls_back",
+      "inputs": [
+        "examples/traces/generated-client.json",
+        "malformed.json"
+      ],
+      "expected_success": false,
+      "actual_success": false,
+      "expected_trace_count": 0,
+      "actual_trace_count": 0,
+      "memory_count": 0,
+      "passed": true
+    }
+  ],
+  "passed": 6,
+  "total": 6
+}

@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "id": "duplicate-events",
+  "project": "fixture",
+  "harness": "canonical",
+  "events": [
+    {"id": "e1", "action": "prompt", "text": "Invented invalid input"},
+    {"id": "e1", "action": "response", "text": "Duplicate source identifier"}
+  ]
+}

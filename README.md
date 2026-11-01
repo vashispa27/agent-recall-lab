@@ -9,7 +9,8 @@ not affiliated with Asymptote Labs. Python 3.11+, SQLite, reproducible synthetic
 
 ## What works today
 
-- Validated canonical traces with lightweight credential redaction and duplicate detection.
+- Schema-validated canonical traces, atomic batch import, lightweight credential redaction,
+  and duplicate detection.
 - SQLite storage of traces, evidence-linked candidates, and explicitly reviewed memories.
 - A deterministic correction-extraction baseline; this is **not LLM extraction**.
 - Project-scoped keyword retrieval of approved memory only.
@@ -31,6 +32,12 @@ uv run recall search --project storefront 'integration tests generated client'
 uv run pytest -q
 uv run python experiments/retrieval_baseline.py
 ```
+
+`recall ingest` validates every input and imports the whole batch atomically. An invalid
+file or conflicting trace ID rolls back new rows; identical redacted traces are skipped.
+Direct store ingestion applies the same validation and redaction. See the
+[canonical schema](src/recall_lab/schemas/trace.schema.json) and
+[reproducible import checks](experiments/results/ingestion-contract.md).
 
 Every trace is invented. Fixture commands are evidence text and never executed.
 The redactor is a small baseline, not a comprehensive secret detector.
