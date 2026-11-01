@@ -56,6 +56,9 @@ flowchart LR
 
 ## Experiments and limits
 
+[Foundation findings](experiments/results/foundation-findings.md) explain the current
+architecture, reproduced evidence, failure cases, and missing integrations.
+
 [Baseline results](experiments/results/retrieval-baseline.md) measure retrieval against
 curated synthetic lessons. They do not establish that an LLM follows those lessons,
 that tests pass more often, or that tokens are saved. Evaluation ground truth is

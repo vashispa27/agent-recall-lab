@@ -13,3 +13,4 @@ jobs:
       - run: uv run ruff format --check .
       - run: uv run pytest -q
       - run: uv run python experiments/retrieval_baseline.py --check
+      - run: uv run python experiments/ingestion_contract.py --check
