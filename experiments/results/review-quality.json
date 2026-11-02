@@ -1,0 +1,34 @@
+{
+  "evidence_type": "synthetic retrieval and actual local SQLite operations",
+  "sources_sha256": {
+    "examples/traces/generated-client.json": "0390e8ac339e700810a24d6a1d3e034c3b6a81306ebf5265a0e3e4a4f16bb147",
+    "examples/traces/poisoned-correction.json": "3a608029d3dd62e345afeaf89d1e93b1ddeb91d68b53c2a62de143e81d316c84"
+  },
+  "cases": [
+    {
+      "case": "poison-still-proposed",
+      "passed": true,
+      "negative_outcome": "Extractor does not detect unsafe correction"
+    },
+    {
+      "case": "rejected-poison-excluded",
+      "passed": true
+    },
+    {
+      "case": "revision-gated",
+      "passed": true
+    },
+    {
+      "case": "stale-source-retired",
+      "passed": true
+    },
+    {
+      "case": "project-isolation",
+      "passed": true
+    },
+    {
+      "case": "reimport-preserves-review",
+      "passed": true
+    }
+  ]
+}

@@ -24,6 +24,11 @@ def main():
     review = commands.add_parser("review")
     review.add_argument("id")
     review.add_argument("decision", choices=["approved", "rejected"])
+    revise = commands.add_parser("revise")
+    revise.add_argument("id")
+    revise.add_argument("--project", required=True)
+    revise.add_argument("--body", required=True)
+    revise.add_argument("--applicability", required=True)
     search = commands.add_parser("search")
     search.add_argument("--project", required=True)
     search.add_argument("query")
@@ -43,6 +48,8 @@ def main():
             result = store.list_memories(args.state)
         elif args.command == "show":
             result = store.inspect_memory(args.id, args.project)
+        elif args.command == "revise":
+            result = {"id": store.revise(args.id, args.project, args.body, args.applicability)}
         elif args.command == "review":
             store.review(args.id, args.decision)
             result = {"id": args.id, "state": args.decision}

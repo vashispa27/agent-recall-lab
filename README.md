@@ -17,6 +17,7 @@ not affiliated with Asymptote Labs. Python 3.11+, SQLite, reproducible synthetic
 - An [evidence-linked extraction interface](docs/extraction.md), deterministic provider,
   durable provider/source metadata, and project-scoped source inspection; **not LLM extraction**.
 - Project-scoped keyword retrieval of approved memory only.
+- Review-gated revisions with atomic supersession and inspectable applicability context.
 - Eight synthetic traces, separate evaluation queries, tests, and a retrieval baseline.
 
 MCP, full native-session ingestion, a pre-command recall loop, and execution experiments
@@ -59,6 +60,10 @@ flowchart LR
 ```
 
 ## Experiments and limits
+
+[Review quality checks](experiments/results/review-quality.md) demonstrate replacement
+review gating, stale-lesson retirement, and explicit poison rejection. Applicability
+is descriptive context, not an enforced command policy.
 
 [Extraction checks](experiments/results/extraction-contract.md) retain the unsafe
 correction that passes the ordering rule and verify provider failure rollback.

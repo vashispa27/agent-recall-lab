@@ -76,6 +76,10 @@ class Store:
                 body TEXT NOT NULL, evidence TEXT NOT NULL,
                 state TEXT NOT NULL CHECK(state IN ('candidate', 'approved', 'rejected'))
             );
+            CREATE TABLE IF NOT EXISTS memory_revisions (
+                memory_id TEXT PRIMARY KEY, replaces TEXT NOT NULL,
+                applicability TEXT NOT NULL
+            );
             CREATE TABLE IF NOT EXISTS memory_extractions (
                 memory_id TEXT PRIMARY KEY, provider TEXT NOT NULL,
                 source_sha256 TEXT NOT NULL
@@ -182,12 +186,56 @@ class Store:
             "source_events": [events[x] for x in memory["evidence"]],
             "trace_provenance": trace.get("provenance"),
             "extraction": dict(metadata) if metadata else None,
+            "revision": self._revision(memory_id),
         }
+
+    def _revision(self, memory_id: str):
+        row = self.db.execute(
+            "SELECT replaces, applicability FROM memory_revisions WHERE memory_id=?",
+            (memory_id,),
+        ).fetchone()
+        return dict(row) if row else None
+
+    def revise(self, memory_id: str, project: str, body: str, applicability: str) -> str:
+        """Propose a replacement without changing the approved source or its evidence.
+
+        Applicability is reviewer-readable context, not an enforced command policy.
+        Approval atomically retires the old lesson; rejected revisions leave it active.
+        """
+        if not all(isinstance(x, str) and x.strip() for x in (body, applicability)):
+            raise ValueError("Body and applicability must be nonempty text")
+        source = self.inspect_memory(memory_id, project)["memory"]
+        if source["state"] != "approved":
+            raise ValueError("Only an active approved memory can be revised")
+        body, applicability = redact(body.strip()), redact(applicability.strip())
+        replacement = hashlib.sha256(
+            json.dumps([memory_id, body, applicability]).encode()
+        ).hexdigest()[:16]
+        with self.db:
+            self.db.execute(
+                "INSERT INTO memories VALUES (?, ?, ?, ?, ?, 'candidate')",
+                (replacement, source["trace_id"], project, body, json.dumps(source["evidence"])),
+            )
+            self.db.execute(
+                "INSERT INTO memory_revisions VALUES (?, ?, ?)",
+                (replacement, memory_id, applicability),
+            )
+        return replacement
 
     def review(self, memory_id: str, decision: str):
         if decision not in {"approved", "rejected"}:
             raise ValueError("Review decision must be approved or rejected")
         with self.db:
+            revision = self.db.execute(
+                "SELECT replaces FROM memory_revisions WHERE memory_id=?", (memory_id,)
+            ).fetchone()
+            if revision and decision == "approved":
+                retired = self.db.execute(
+                    "UPDATE memories SET state='rejected' WHERE id=? AND state='approved'",
+                    (revision["replaces"],),
+                )
+                if retired.rowcount != 1:
+                    raise ValueError("Replacement source is no longer active")
             result = self.db.execute(
                 "UPDATE memories SET state=? WHERE id=? AND state='candidate'",
                 (decision, memory_id),
@@ -214,6 +262,8 @@ class Store:
             item = dict(row)
             score = len(terms & tokenize(item["body"])) / len(terms)
             if score:
+                if revision := self._revision(item["id"]):
+                    item["revision"] = revision
                 item["score"] = score
                 item["evidence"] = json.loads(item["evidence"])
                 ranked.append(item)
