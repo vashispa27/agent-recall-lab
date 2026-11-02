@@ -14,7 +14,8 @@ not affiliated with Asymptote Labs. Python 3.11+, SQLite, reproducible synthetic
 - Explicitly synthetic [Claude/Codex format subsets](examples/native/README.md) with
   source hashes, matched tool results, and strict rejection of unsupported records.
 - SQLite storage of traces, evidence-linked candidates, and explicitly reviewed memories.
-- A deterministic correction-extraction baseline; this is **not LLM extraction**.
+- An [evidence-linked extraction interface](docs/extraction.md), deterministic provider,
+  durable provider/source metadata, and project-scoped source inspection; **not LLM extraction**.
 - Project-scoped keyword retrieval of approved memory only.
 - Eight synthetic traces, separate evaluation queries, tests, and a retrieval baseline.
 
@@ -28,7 +29,8 @@ uv sync --locked --extra dev
 uv run recall ingest examples/traces/*.json
 uv run recall distill
 uv run recall list
-# Inspect a candidate and its source trace before approving its displayed ID:
+# Inspect a candidate and its source events before approving its displayed ID:
+uv run recall show <candidate-id> --project storefront
 uv run recall review <candidate-id> approved
 uv run recall search --project storefront 'integration tests generated client'
 uv run pytest -q
@@ -57,6 +59,9 @@ flowchart LR
 ```
 
 ## Experiments and limits
+
+[Extraction checks](experiments/results/extraction-contract.md) retain the unsafe
+correction that passes the ordering rule and verify provider failure rollback.
 
 [Adapter boundary checks](experiments/results/native-adapters.md) reproduce synthetic
 conversion and review gating; they do not establish native-agent behavior.

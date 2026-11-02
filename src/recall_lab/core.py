@@ -76,6 +76,10 @@ class Store:
                 body TEXT NOT NULL, evidence TEXT NOT NULL,
                 state TEXT NOT NULL CHECK(state IN ('candidate', 'approved', 'rejected'))
             );
+            CREATE TABLE IF NOT EXISTS memory_extractions (
+                memory_id TEXT PRIMARY KEY, provider TEXT NOT NULL,
+                source_sha256 TEXT NOT NULL
+            );
         """)
 
     def close(self):
@@ -108,37 +112,77 @@ class Store:
                 inserted += 1
         return inserted
 
-    def distill(self) -> int:
-        """Rule baseline: retain an explicit correction between failure and success.
+    def distill(self, provider=None) -> int:
+        """Validate untrusted proposals and persist a whole extraction batch atomically.
 
-        This is not LLM extraction or an endorsement of the correction's content.
-        Human review is mandatory, including for malicious-looking corrections.
+        Existing review decisions and candidate identities are never overwritten.
+        Ordering establishes evidence links, not causality or correction safety.
         """
+        from recall_lab.extraction import (
+            CorrectionRuleExtractor,
+            validate_proposal,
+            validate_provider,
+        )
+
+        if provider is None:
+            provider = CorrectionRuleExtractor()
+        provider_id = validate_provider(provider)
         created = 0
-        for row in self.db.execute("SELECT payload FROM traces ORDER BY id").fetchall():
-            trace = json.loads(row["payload"])
-            events = trace["events"]
-            for i, event in enumerate(events):
-                if event["action"] != "correction":
-                    continue
-                failures = [
-                    e for e in events[:i] if e["action"] == "command" and e["exit_code"] != 0
-                ]
-                successes = [
-                    e for e in events[i + 1 :] if e["action"] == "command" and e["exit_code"] == 0
-                ]
-                if not failures or not successes:
-                    continue
-                identity = f"{trace['id']}:{event['id']}"
-                memory_id = hashlib.sha256(identity.encode()).hexdigest()[:16]
-                evidence = json.dumps([failures[-1]["id"], event["id"], successes[0]["id"]])
-                with self.db:
-                    result = self.db.execute(
-                        "INSERT OR IGNORE INTO memories VALUES (?, ?, ?, ?, ?, 'candidate')",
-                        (memory_id, trace["id"], trace["project"], event["text"], evidence),
+        with self.db:
+            for row in self.db.execute("SELECT payload FROM traces ORDER BY id").fetchall():
+                trace = validate_trace(json.loads(row["payload"]))
+                digest = hashlib.sha256(
+                    json.dumps(trace, sort_keys=True, separators=(",", ":")).encode()
+                ).hexdigest()
+                for raw in provider.extract(copy.deepcopy(trace)):
+                    proposal = validate_proposal(raw, trace)
+                    identity = f"{trace['id']}:{proposal.evidence[1]}"
+                    memory_id = hashlib.sha256(identity.encode()).hexdigest()[:16]
+                    evidence = json.dumps(proposal.evidence)
+                    old = self.db.execute(
+                        "SELECT body, evidence FROM memories WHERE id=?", (memory_id,)
+                    ).fetchone()
+                    if old:
+                        if old["body"] != proposal.body or old["evidence"] != evidence:
+                            raise ValueError("Conflicting candidate for source correction")
+                        continue
+                    self.db.execute(
+                        "INSERT INTO memories VALUES (?, ?, ?, ?, ?, 'candidate')",
+                        (memory_id, trace["id"], trace["project"], proposal.body, evidence),
                     )
-                created += result.rowcount
+                    self.db.execute(
+                        "INSERT INTO memory_extractions VALUES (?, ?, ?)",
+                        (memory_id, provider_id, digest),
+                    )
+                    created += 1
         return created
+
+    def inspect_memory(self, memory_id: str, project: str) -> dict:
+        """Return redacted source events and extraction metadata within a project."""
+        if not isinstance(project, str) or not project.strip():
+            raise ValueError("A project is required")
+        row = self.db.execute(
+            "SELECT * FROM memories WHERE id=? AND project=?", (memory_id, project)
+        ).fetchone()
+        if row is None:
+            raise ValueError("Memory not found in project")
+        memory = dict(row)
+        memory["evidence"] = json.loads(memory["evidence"])
+        trace = json.loads(
+            self.db.execute(
+                "SELECT payload FROM traces WHERE id=?", (memory["trace_id"],)
+            ).fetchone()[0]
+        )
+        events = {e["id"]: e for e in trace["events"]}
+        metadata = self.db.execute(
+            "SELECT provider, source_sha256 FROM memory_extractions WHERE memory_id=?", (memory_id,)
+        ).fetchone()
+        return {
+            "memory": memory,
+            "source_events": [events[x] for x in memory["evidence"]],
+            "trace_provenance": trace.get("provenance"),
+            "extraction": dict(metadata) if metadata else None,
+        }
 
     def review(self, memory_id: str, decision: str):
         if decision not in {"approved", "rejected"}:

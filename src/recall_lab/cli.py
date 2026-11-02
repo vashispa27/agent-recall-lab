@@ -18,6 +18,9 @@ def main():
     listing.add_argument(
         "--state", choices=["candidate", "approved", "rejected"], default="candidate"
     )
+    show = commands.add_parser("show")
+    show.add_argument("id")
+    show.add_argument("--project", required=True)
     review = commands.add_parser("review")
     review.add_argument("id")
     review.add_argument("decision", choices=["approved", "rejected"])
@@ -38,6 +41,8 @@ def main():
             result = {"candidates_created": store.distill()}
         elif args.command == "list":
             result = store.list_memories(args.state)
+        elif args.command == "show":
+            result = store.inspect_memory(args.id, args.project)
         elif args.command == "review":
             store.review(args.id, args.decision)
             result = {"id": args.id, "state": args.decision}

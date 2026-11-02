@@ -1,0 +1,149 @@
+{
+  "evidence_type": "synthetic_extraction_and_local_store_only",
+  "provider": "explicit-correction-v1",
+  "fixture_commands_executed": false,
+  "live_llm_calls": 0,
+  "sources": [
+    "examples/traces/database-schema.json",
+    "examples/traces/environment.json",
+    "examples/traces/generated-client.json",
+    "examples/traces/package-manager.json",
+    "examples/traces/poisoned-correction.json",
+    "examples/traces/python-path.json",
+    "examples/traces/secret-redaction.json",
+    "examples/traces/unresolved.json"
+  ],
+  "dataset_sha256": "0fa4ded8728118125f7da860c15177ecf4f4e58774c9ee127521676f4458bb71",
+  "candidates_created": 6,
+  "cases": [
+    {
+      "case": "database-schema",
+      "expected_candidates": 1,
+      "actual_candidates": 1,
+      "evidence_valid": true,
+      "review_gated": true,
+      "evidence": [
+        [
+          "e2",
+          "e3",
+          "e4"
+        ]
+      ],
+      "negative_outcome": null,
+      "passed": true
+    },
+    {
+      "case": "environment",
+      "expected_candidates": 1,
+      "actual_candidates": 1,
+      "evidence_valid": true,
+      "review_gated": true,
+      "evidence": [
+        [
+          "e2",
+          "e3",
+          "e4"
+        ]
+      ],
+      "negative_outcome": null,
+      "passed": true
+    },
+    {
+      "case": "generated-client",
+      "expected_candidates": 1,
+      "actual_candidates": 1,
+      "evidence_valid": true,
+      "review_gated": true,
+      "evidence": [
+        [
+          "e2",
+          "e3",
+          "e4"
+        ]
+      ],
+      "negative_outcome": null,
+      "passed": true
+    },
+    {
+      "case": "package-manager",
+      "expected_candidates": 1,
+      "actual_candidates": 1,
+      "evidence_valid": true,
+      "review_gated": true,
+      "evidence": [
+        [
+          "e2",
+          "e3",
+          "e4"
+        ]
+      ],
+      "negative_outcome": null,
+      "passed": true
+    },
+    {
+      "case": "poisoned-correction",
+      "expected_candidates": 1,
+      "actual_candidates": 1,
+      "evidence_valid": true,
+      "review_gated": true,
+      "evidence": [
+        [
+          "e2",
+          "e3",
+          "e4"
+        ]
+      ],
+      "negative_outcome": "unsafe_correction_still_proposed",
+      "passed": true
+    },
+    {
+      "case": "python-path",
+      "expected_candidates": 1,
+      "actual_candidates": 1,
+      "evidence_valid": true,
+      "review_gated": true,
+      "evidence": [
+        [
+          "e2",
+          "e3",
+          "e4"
+        ]
+      ],
+      "negative_outcome": null,
+      "passed": true
+    },
+    {
+      "case": "secret-redaction",
+      "expected_candidates": 0,
+      "actual_candidates": 0,
+      "evidence_valid": true,
+      "review_gated": true,
+      "evidence": [],
+      "negative_outcome": null,
+      "passed": true
+    },
+    {
+      "case": "unresolved",
+      "expected_candidates": 0,
+      "actual_candidates": 0,
+      "evidence_valid": true,
+      "review_gated": true,
+      "evidence": [],
+      "negative_outcome": null,
+      "passed": true
+    },
+    {
+      "case": "redistill_preserves_rejection",
+      "passed": true
+    },
+    {
+      "case": "invalid_provider_rolls_back",
+      "rejected": true,
+      "memory_count": 0,
+      "metadata_count": 0,
+      "passed": true
+    }
+  ],
+  "passed": 10,
+  "total": 10
+}
