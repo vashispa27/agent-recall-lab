@@ -1,0 +1,86 @@
+{
+  "synthetic": true,
+  "id": "claude-generated-client",
+  "project": "storefront",
+  "correction_ids": [
+    "c3"
+  ],
+  "exit_codes": {
+    "tool1": 1,
+    "tool2": 0
+  },
+  "records": [
+    {
+      "uuid": "c1",
+      "type": "assistant",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "tool1",
+            "name": "Bash",
+            "input": {
+              "command": "npm run test:integration"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "uuid": "c2",
+      "type": "user",
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "tool_result",
+            "tool_use_id": "tool1",
+            "content": "Generated client missing; token=synthetic-native-secret",
+            "is_error": true
+          }
+        ]
+      }
+    },
+    {
+      "uuid": "c3",
+      "type": "user",
+      "message": {
+        "role": "user",
+        "content": "Run npm run generate before integration tests after schema changes."
+      }
+    },
+    {
+      "uuid": "c4",
+      "type": "assistant",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "tool2",
+            "name": "Bash",
+            "input": {
+              "command": "npm run generate && npm run test:integration"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "uuid": "c5",
+      "type": "user",
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "tool_result",
+            "tool_use_id": "tool2",
+            "content": "Tests passed (invented outcome)",
+            "is_error": false
+          }
+        ]
+      }
+    }
+  ]
+}

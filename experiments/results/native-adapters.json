@@ -1,0 +1,66 @@
+{
+  "evidence_type": "synthetic_conversion_and_local_store_only",
+  "fixture_commands_executed": false,
+  "live_llm_calls": 0,
+  "sources": [
+    "examples/native/claude.json",
+    "examples/native/codex.json"
+  ],
+  "dataset_sha256": "e4e61cc9edd6b1d7c5a3b109aad3f05eecb8984da7e81bb6ca7e68f6c8f76f79",
+  "cases": [
+    {
+      "case": "claude_import_review",
+      "inserted": true,
+      "duplicate_inserted": false,
+      "candidates": 1,
+      "evidence": [
+        "c2:0",
+        "c3:0",
+        "c5:0"
+      ],
+      "source_sha256": "84462bb8b724f310b3d381c225b743f15c4a345f3cba833c090794bc81f408dd",
+      "review_gated": true,
+      "approved_retrieved": true,
+      "project_isolated": true,
+      "passed": true
+    },
+    {
+      "case": "claude_unknown_record",
+      "rejected": true,
+      "passed": true
+    },
+    {
+      "case": "claude_unmatched_correction",
+      "rejected": true,
+      "passed": true
+    },
+    {
+      "case": "codex_import_review",
+      "inserted": true,
+      "duplicate_inserted": false,
+      "candidates": 1,
+      "evidence": [
+        "item1",
+        "item2",
+        "item3"
+      ],
+      "source_sha256": "bb5be2a26f9aed8448ccfb02580e424592a9a6358f09466beb1c918e8c89e357",
+      "review_gated": true,
+      "approved_retrieved": true,
+      "project_isolated": true,
+      "passed": true
+    },
+    {
+      "case": "codex_unknown_record",
+      "rejected": true,
+      "passed": true
+    },
+    {
+      "case": "codex_unmatched_correction",
+      "rejected": true,
+      "passed": true
+    }
+  ],
+  "passed": 6,
+  "total": 6
+}

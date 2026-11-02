@@ -10,6 +10,14 @@
     "id": {"$ref": "#/$defs/identifier"},
     "project": {"$ref": "#/$defs/identifier"},
     "harness": {"$ref": "#/$defs/identifier"},
+    "provenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["adapter", "source_sha256"],
+      "properties": {
+        "adapter": {"enum": ["claude-subset-v1", "codex-subset-v1"]},
+        "source_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
     "events": {
       "type": "array", "minItems": 1,
       "items": {

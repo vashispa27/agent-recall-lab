@@ -1,0 +1,40 @@
+{
+  "synthetic": true,
+  "id": "codex-python-path",
+  "project": "analytics",
+  "correction_ids": [
+    "item2"
+  ],
+  "records": [
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item1",
+        "type": "command_execution",
+        "command": "pytest",
+        "aggregated_output": "ModuleNotFoundError (invented)",
+        "exit_code": 1,
+        "status": "failed"
+      }
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item2",
+        "type": "agent_message",
+        "text": "Use uv run pytest from the analytics project root to use the installed package."
+      }
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item3",
+        "type": "command_execution",
+        "command": "uv run pytest",
+        "aggregated_output": "Tests passed (invented outcome)",
+        "exit_code": 0,
+        "status": "completed"
+      }
+    }
+  ]
+}

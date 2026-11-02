@@ -11,13 +11,15 @@ not affiliated with Asymptote Labs. Python 3.11+, SQLite, reproducible synthetic
 
 - Schema-validated canonical traces, atomic batch import, lightweight credential redaction,
   and duplicate detection.
+- Explicitly synthetic [Claude/Codex format subsets](examples/native/README.md) with
+  source hashes, matched tool results, and strict rejection of unsupported records.
 - SQLite storage of traces, evidence-linked candidates, and explicitly reviewed memories.
 - A deterministic correction-extraction baseline; this is **not LLM extraction**.
 - Project-scoped keyword retrieval of approved memory only.
 - Eight synthetic traces, separate evaluation queries, tests, and a retrieval baseline.
 
-MCP, native agent adapters, a pre-command recall loop, and execution experiments are
-not implemented yet.
+MCP, full native-session ingestion, a pre-command recall loop, and execution experiments
+are not implemented yet.
 
 ## Run
 
@@ -55,6 +57,9 @@ flowchart LR
 ```
 
 ## Experiments and limits
+
+[Adapter boundary checks](experiments/results/native-adapters.md) reproduce synthetic
+conversion and review gating; they do not establish native-agent behavior.
 
 [Foundation findings](experiments/results/foundation-findings.md) explain the current
 architecture, reproduced evidence, failure cases, and missing integrations.

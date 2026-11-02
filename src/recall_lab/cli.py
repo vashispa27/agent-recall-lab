@@ -2,6 +2,7 @@ import argparse
 import json
 from pathlib import Path
 
+from recall_lab.adapters import load_native_trace
 from recall_lab.core import Store, load_trace
 
 
@@ -11,6 +12,7 @@ def main():
     commands = parser.add_subparsers(dest="command", required=True)
     ingest = commands.add_parser("ingest")
     ingest.add_argument("paths", nargs="+", type=Path)
+    ingest.add_argument("--format", choices=["canonical", "claude", "codex"], default="canonical")
     commands.add_parser("distill")
     listing = commands.add_parser("list")
     listing.add_argument(
@@ -26,7 +28,12 @@ def main():
     store = Store(args.db)
     try:
         if args.command == "ingest":
-            result = {"inserted": store.ingest_batch(load_trace(path) for path in args.paths)}
+            loader = (
+                load_trace
+                if args.format == "canonical"
+                else (lambda path: load_native_trace(path, args.format))
+            )
+            result = {"inserted": store.ingest_batch(loader(path) for path in args.paths)}
         elif args.command == "distill":
             result = {"candidates_created": store.distill()}
         elif args.command == "list":

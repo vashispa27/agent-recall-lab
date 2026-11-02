@@ -42,7 +42,7 @@ def validate_trace(trace: object) -> dict:
     return normalized
 
 
-def load_trace(path: Path) -> dict:
+def read_json(path: Path) -> object:
     def unique_keys(pairs):
         result = {}
         for key, value in pairs:
@@ -51,7 +51,11 @@ def load_trace(path: Path) -> dict:
             result[key] = value
         return result
 
-    return validate_trace(json.loads(path.read_text(), object_pairs_hook=unique_keys))
+    return json.loads(path.read_text(), object_pairs_hook=unique_keys)
+
+
+def load_trace(path: Path) -> dict:
+    return validate_trace(read_json(path))
 
 
 def tokenize(text: str) -> set[str]:

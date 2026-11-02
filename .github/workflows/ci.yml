@@ -14,3 +14,4 @@ jobs:
       - run: uv run pytest -q
       - run: uv run python experiments/retrieval_baseline.py --check
       - run: uv run python experiments/ingestion_contract.py --check
+      - run: uv run python experiments/native_adapters.py --check
