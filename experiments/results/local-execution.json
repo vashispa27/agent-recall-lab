@@ -1,0 +1,471 @@
+{
+  "evidence_type": "actual_local_execution_with_scripted_policy",
+  "dataset_sha256": "0390e8ac339e700810a24d6a1d3e034c3b6a81306ebf5265a0e3e4a4f16bb147",
+  "programs_sha256": "285114fbae4e7ae37485b0f42f72bc014e6a018f97df119d5e01b583b826492c",
+  "cases": [
+    {
+      "reviewed": false,
+      "project": "storefront",
+      "mode": "disabled",
+      "commands": [
+        {
+          "program": "check",
+          "exit_code": 1,
+          "stdout": "generated client missing\n",
+          "stderr": ""
+        }
+      ],
+      "passed": false,
+      "audit": [
+        {
+          "event": "decision",
+          "action": "check",
+          "allowed": true
+        },
+        {
+          "event": "performed",
+          "action": "check",
+          "result": {
+            "program": "check",
+            "exit_code": 1,
+            "stdout": "generated client missing\n",
+            "stderr": ""
+          }
+        }
+      ]
+    },
+    {
+      "reviewed": false,
+      "project": "storefront",
+      "mode": "task_start",
+      "commands": [
+        {
+          "program": "check",
+          "exit_code": 1,
+          "stdout": "generated client missing\n",
+          "stderr": ""
+        }
+      ],
+      "passed": false,
+      "audit": [
+        {
+          "event": "recall",
+          "phase": "task_start",
+          "project": "storefront",
+          "query": "Investigate a development task",
+          "memory_ids": []
+        },
+        {
+          "event": "decision",
+          "action": "check",
+          "allowed": true
+        },
+        {
+          "event": "performed",
+          "action": "check",
+          "result": {
+            "program": "check",
+            "exit_code": 1,
+            "stdout": "generated client missing\n",
+            "stderr": ""
+          }
+        }
+      ]
+    },
+    {
+      "reviewed": false,
+      "project": "storefront",
+      "mode": "pre_command",
+      "commands": [
+        {
+          "program": "check",
+          "exit_code": 1,
+          "stdout": "generated client missing\n",
+          "stderr": ""
+        }
+      ],
+      "passed": false,
+      "audit": [
+        {
+          "event": "recall",
+          "phase": "task_start",
+          "project": "storefront",
+          "query": "Investigate a development task",
+          "memory_ids": []
+        },
+        {
+          "event": "recall",
+          "phase": "pre_command",
+          "project": "storefront",
+          "query": "integration tests generated client",
+          "memory_ids": []
+        },
+        {
+          "event": "decision",
+          "action": "check",
+          "allowed": true
+        },
+        {
+          "event": "performed",
+          "action": "check",
+          "result": {
+            "program": "check",
+            "exit_code": 1,
+            "stdout": "generated client missing\n",
+            "stderr": ""
+          }
+        }
+      ]
+    },
+    {
+      "reviewed": false,
+      "project": "other-project",
+      "mode": "disabled",
+      "commands": [
+        {
+          "program": "check",
+          "exit_code": 1,
+          "stdout": "generated client missing\n",
+          "stderr": ""
+        }
+      ],
+      "passed": false,
+      "audit": [
+        {
+          "event": "decision",
+          "action": "check",
+          "allowed": true
+        },
+        {
+          "event": "performed",
+          "action": "check",
+          "result": {
+            "program": "check",
+            "exit_code": 1,
+            "stdout": "generated client missing\n",
+            "stderr": ""
+          }
+        }
+      ]
+    },
+    {
+      "reviewed": false,
+      "project": "other-project",
+      "mode": "task_start",
+      "commands": [
+        {
+          "program": "check",
+          "exit_code": 1,
+          "stdout": "generated client missing\n",
+          "stderr": ""
+        }
+      ],
+      "passed": false,
+      "audit": [
+        {
+          "event": "recall",
+          "phase": "task_start",
+          "project": "other-project",
+          "query": "Investigate a development task",
+          "memory_ids": []
+        },
+        {
+          "event": "decision",
+          "action": "check",
+          "allowed": true
+        },
+        {
+          "event": "performed",
+          "action": "check",
+          "result": {
+            "program": "check",
+            "exit_code": 1,
+            "stdout": "generated client missing\n",
+            "stderr": ""
+          }
+        }
+      ]
+    },
+    {
+      "reviewed": false,
+      "project": "other-project",
+      "mode": "pre_command",
+      "commands": [
+        {
+          "program": "check",
+          "exit_code": 1,
+          "stdout": "generated client missing\n",
+          "stderr": ""
+        }
+      ],
+      "passed": false,
+      "audit": [
+        {
+          "event": "recall",
+          "phase": "task_start",
+          "project": "other-project",
+          "query": "Investigate a development task",
+          "memory_ids": []
+        },
+        {
+          "event": "recall",
+          "phase": "pre_command",
+          "project": "other-project",
+          "query": "integration tests generated client",
+          "memory_ids": []
+        },
+        {
+          "event": "decision",
+          "action": "check",
+          "allowed": true
+        },
+        {
+          "event": "performed",
+          "action": "check",
+          "result": {
+            "program": "check",
+            "exit_code": 1,
+            "stdout": "generated client missing\n",
+            "stderr": ""
+          }
+        }
+      ]
+    },
+    {
+      "reviewed": true,
+      "project": "storefront",
+      "mode": "disabled",
+      "commands": [
+        {
+          "program": "check",
+          "exit_code": 1,
+          "stdout": "generated client missing\n",
+          "stderr": ""
+        }
+      ],
+      "passed": false,
+      "audit": [
+        {
+          "event": "decision",
+          "action": "check",
+          "allowed": true
+        },
+        {
+          "event": "performed",
+          "action": "check",
+          "result": {
+            "program": "check",
+            "exit_code": 1,
+            "stdout": "generated client missing\n",
+            "stderr": ""
+          }
+        }
+      ]
+    },
+    {
+      "reviewed": true,
+      "project": "storefront",
+      "mode": "task_start",
+      "commands": [
+        {
+          "program": "check",
+          "exit_code": 1,
+          "stdout": "generated client missing\n",
+          "stderr": ""
+        }
+      ],
+      "passed": false,
+      "audit": [
+        {
+          "event": "recall",
+          "phase": "task_start",
+          "project": "storefront",
+          "query": "Investigate a development task",
+          "memory_ids": []
+        },
+        {
+          "event": "decision",
+          "action": "check",
+          "allowed": true
+        },
+        {
+          "event": "performed",
+          "action": "check",
+          "result": {
+            "program": "check",
+            "exit_code": 1,
+            "stdout": "generated client missing\n",
+            "stderr": ""
+          }
+        }
+      ]
+    },
+    {
+      "reviewed": true,
+      "project": "storefront",
+      "mode": "pre_command",
+      "commands": [
+        {
+          "program": "generate",
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "program": "check",
+          "exit_code": 0,
+          "stdout": "client ready\n",
+          "stderr": ""
+        }
+      ],
+      "passed": true,
+      "audit": [
+        {
+          "event": "recall",
+          "phase": "task_start",
+          "project": "storefront",
+          "query": "Investigate a development task",
+          "memory_ids": []
+        },
+        {
+          "event": "recall",
+          "phase": "pre_command",
+          "project": "storefront",
+          "query": "integration tests generated client",
+          "memory_ids": [
+            "generated-client"
+          ]
+        },
+        {
+          "event": "decision",
+          "action": "check",
+          "allowed": true
+        },
+        {
+          "event": "performed",
+          "action": "check",
+          "result": {
+            "program": "check",
+            "exit_code": 0,
+            "stdout": "client ready\n",
+            "stderr": ""
+          }
+        }
+      ]
+    },
+    {
+      "reviewed": true,
+      "project": "other-project",
+      "mode": "disabled",
+      "commands": [
+        {
+          "program": "check",
+          "exit_code": 1,
+          "stdout": "generated client missing\n",
+          "stderr": ""
+        }
+      ],
+      "passed": false,
+      "audit": [
+        {
+          "event": "decision",
+          "action": "check",
+          "allowed": true
+        },
+        {
+          "event": "performed",
+          "action": "check",
+          "result": {
+            "program": "check",
+            "exit_code": 1,
+            "stdout": "generated client missing\n",
+            "stderr": ""
+          }
+        }
+      ]
+    },
+    {
+      "reviewed": true,
+      "project": "other-project",
+      "mode": "task_start",
+      "commands": [
+        {
+          "program": "check",
+          "exit_code": 1,
+          "stdout": "generated client missing\n",
+          "stderr": ""
+        }
+      ],
+      "passed": false,
+      "audit": [
+        {
+          "event": "recall",
+          "phase": "task_start",
+          "project": "other-project",
+          "query": "Investigate a development task",
+          "memory_ids": []
+        },
+        {
+          "event": "decision",
+          "action": "check",
+          "allowed": true
+        },
+        {
+          "event": "performed",
+          "action": "check",
+          "result": {
+            "program": "check",
+            "exit_code": 1,
+            "stdout": "generated client missing\n",
+            "stderr": ""
+          }
+        }
+      ]
+    },
+    {
+      "reviewed": true,
+      "project": "other-project",
+      "mode": "pre_command",
+      "commands": [
+        {
+          "program": "check",
+          "exit_code": 1,
+          "stdout": "generated client missing\n",
+          "stderr": ""
+        }
+      ],
+      "passed": false,
+      "audit": [
+        {
+          "event": "recall",
+          "phase": "task_start",
+          "project": "other-project",
+          "query": "Investigate a development task",
+          "memory_ids": []
+        },
+        {
+          "event": "recall",
+          "phase": "pre_command",
+          "project": "other-project",
+          "query": "integration tests generated client",
+          "memory_ids": []
+        },
+        {
+          "event": "decision",
+          "action": "check",
+          "allowed": true
+        },
+        {
+          "event": "performed",
+          "action": "check",
+          "result": {
+            "program": "check",
+            "exit_code": 1,
+            "stdout": "generated client missing\n",
+            "stderr": ""
+          }
+        }
+      ]
+    }
+  ]
+}

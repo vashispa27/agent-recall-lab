@@ -24,7 +24,9 @@ not affiliated with Asymptote Labs. Python 3.11+, SQLite, reproducible synthetic
   pre-command hooks, explicit policy decisions, and an ordered retrieval audit trail.
 - Eight synthetic traces, separate evaluation queries, tests, and a retrieval baseline.
 
-Full native-session ingestion and execution experiments are not implemented yet.
+A [disposable execution comparison](experiments/results/local-execution.md) runs real
+local Python checks with scripted prerequisite decisions. Full native-session ingestion
+is not implemented yet.
 The controlled loop uses scripted callbacks; it does not establish live-agent behavior.
 
 ## Run
