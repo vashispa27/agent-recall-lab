@@ -1,5 +1,9 @@
 # Memory foundation findings
 
+Historical foundation snapshot. For current integration capabilities and evidence, see
+[recall integration findings](recall-integration-findings.md). The absence statements
+and test count below describe the foundation snapshot, not the current package.
+
 The canonical trace pipeline is reproducible, but there is no evidence yet that
 retrieving its lessons improves agent task success. The current product accepts
 invented canonical traces only; native Claude/Codex adapters, MCP tools and a

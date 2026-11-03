@@ -27,5 +27,6 @@ own execution policy.
 
 Tests cover ordered recall, blocked dispatch, project binding, context isolation from
 policy mutation, strict boolean policy responses, validation, and stopping on errors.
-Actual disposable command execution and broader retrieval quality evaluation remain
-separate work. No improvement rate or token savings is claimed.
+[Actual disposable command execution](local-execution.md) is measured separately.
+Broader retrieval quality evaluation remains incomplete. No improvement rate or token
+savings is claimed.

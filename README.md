@@ -67,6 +67,10 @@ flowchart LR
 
 ## Experiments and limits
 
+[Recall integration findings](experiments/results/recall-integration-findings.md) connect
+the protocol, hook and disposable execution evidence, with a runnable comparison and
+an explicit account of what remains unmeasured.
+
 [Review quality checks](experiments/results/review-quality.md) demonstrate replacement
 review gating, stale-lesson retirement, and explicit poison rejection. Applicability
 is descriptive context, not an enforced command policy.

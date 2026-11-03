@@ -24,4 +24,5 @@ applicability. Superseded lessons use the existing rejected state; the revision 
 records which replacement retired them. Distinct traces with equivalent lessons are
 still separate candidates, without semantic deduplication. These checks demonstrate
 store behavior, not agent compliance, automatic poison detection, execution improvement,
-or generalization to unseen tasks. MCP and recall-before-action integration remain absent.
+or generalization to unseen tasks. Subsequent [recall integration findings](recall-integration-findings.md)
+cover the MCP transport and controlled recall hooks separately.
