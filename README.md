@@ -18,9 +18,11 @@ not affiliated with Asymptote Labs. Python 3.11+, SQLite, reproducible synthetic
   durable provider/source metadata, and project-scoped source inspection; **not LLM extraction**.
 - Project-scoped keyword retrieval of approved memory only.
 - Review-gated revisions with atomic supersession and inspectable applicability context.
+- Project-bound [stdio MCP recall and source tools](experiments/results/mcp-smoke.md),
+  tested with real local protocol calls.
 - Eight synthetic traces, separate evaluation queries, tests, and a retrieval baseline.
 
-MCP, full native-session ingestion, a pre-command recall loop, and execution experiments
+Full native-session ingestion, a pre-command recall loop, and execution experiments
 are not implemented yet.
 
 ## Run

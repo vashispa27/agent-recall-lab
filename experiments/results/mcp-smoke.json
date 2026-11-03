@@ -1,0 +1,17 @@
+{
+  "evidence": "actual local stdio MCP calls; synthetic memory; no command execution or LLM",
+  "dataset_sha256": "0390e8ac339e700810a24d6a1d3e034c3b6a81306ebf5265a0e3e4a4f16bb147",
+  "checks": {
+    "retrieval_only_tools": true,
+    "candidate_hidden": true,
+    "candidate_source_hidden": true,
+    "approved_retrieved": true,
+    "source_provenance": true,
+    "reject_limit_0": true,
+    "reject_limit_21": true,
+    "cannot_override_project": true,
+    "foreign_source_hidden": true,
+    "supersession_visible_without_restart": true,
+    "rejected_source_hidden": true
+  }
+}
