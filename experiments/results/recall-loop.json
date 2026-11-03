@@ -1,0 +1,129 @@
+{
+  "evidence_type": "synthetic_retrieval_with_scripted_callback",
+  "dataset_sha256": "0390e8ac339e700810a24d6a1d3e034c3b6a81306ebf5265a0e3e4a4f16bb147",
+  "cases": [
+    {
+      "project": "storefront",
+      "mode": "disabled",
+      "dispatched": [],
+      "audit": [
+        {
+          "event": "decision",
+          "action": "integration-check",
+          "allowed": false
+        }
+      ]
+    },
+    {
+      "project": "storefront",
+      "mode": "task_start",
+      "dispatched": [],
+      "audit": [
+        {
+          "event": "recall",
+          "phase": "task_start",
+          "project": "storefront",
+          "query": "Investigate a development task",
+          "memory_ids": []
+        },
+        {
+          "event": "decision",
+          "action": "integration-check",
+          "allowed": false
+        }
+      ]
+    },
+    {
+      "project": "storefront",
+      "mode": "pre_command",
+      "dispatched": [
+        "integration-check"
+      ],
+      "audit": [
+        {
+          "event": "recall",
+          "phase": "task_start",
+          "project": "storefront",
+          "query": "Investigate a development task",
+          "memory_ids": []
+        },
+        {
+          "event": "recall",
+          "phase": "pre_command",
+          "project": "storefront",
+          "query": "integration tests generated client",
+          "memory_ids": [
+            "generated-client"
+          ]
+        },
+        {
+          "event": "decision",
+          "action": "integration-check",
+          "allowed": true
+        },
+        {
+          "event": "performed",
+          "action": "integration-check",
+          "result": "scripted callback"
+        }
+      ]
+    },
+    {
+      "project": "other-project",
+      "mode": "disabled",
+      "dispatched": [],
+      "audit": [
+        {
+          "event": "decision",
+          "action": "integration-check",
+          "allowed": false
+        }
+      ]
+    },
+    {
+      "project": "other-project",
+      "mode": "task_start",
+      "dispatched": [],
+      "audit": [
+        {
+          "event": "recall",
+          "phase": "task_start",
+          "project": "other-project",
+          "query": "Investigate a development task",
+          "memory_ids": []
+        },
+        {
+          "event": "decision",
+          "action": "integration-check",
+          "allowed": false
+        }
+      ]
+    },
+    {
+      "project": "other-project",
+      "mode": "pre_command",
+      "dispatched": [],
+      "audit": [
+        {
+          "event": "recall",
+          "phase": "task_start",
+          "project": "other-project",
+          "query": "Investigate a development task",
+          "memory_ids": []
+        },
+        {
+          "event": "recall",
+          "phase": "pre_command",
+          "project": "other-project",
+          "query": "integration tests generated client",
+          "memory_ids": []
+        },
+        {
+          "event": "decision",
+          "action": "integration-check",
+          "allowed": false
+        }
+      ]
+    }
+  ]
+}

@@ -20,10 +20,12 @@ not affiliated with Asymptote Labs. Python 3.11+, SQLite, reproducible synthetic
 - Review-gated revisions with atomic supersession and inspectable applicability context.
 - Project-bound [stdio MCP recall and source tools](experiments/results/mcp-smoke.md),
   tested with real local protocol calls.
+- A [controlled recall loop](experiments/results/recall-loop.md) with task-start and
+  pre-command hooks, explicit policy decisions, and an ordered retrieval audit trail.
 - Eight synthetic traces, separate evaluation queries, tests, and a retrieval baseline.
 
-Full native-session ingestion, a pre-command recall loop, and execution experiments
-are not implemented yet.
+Full native-session ingestion and execution experiments are not implemented yet.
+The controlled loop uses scripted callbacks; it does not establish live-agent behavior.
 
 ## Run
 
