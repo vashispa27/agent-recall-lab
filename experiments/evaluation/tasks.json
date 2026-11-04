@@ -1,0 +1,86 @@
+[
+  {
+    "id": "locale-literal",
+    "project": "atlas",
+    "query": "locale rendering compile_catalog",
+    "expected_trace": "locale-catalog",
+    "category": "literal"
+  },
+  {
+    "id": "locale-task",
+    "project": "atlas",
+    "query": "Verify translated pages after changing language resources",
+    "expected_trace": "locale-catalog",
+    "category": "paraphrase"
+  },
+  {
+    "id": "asset-literal",
+    "project": "atlas",
+    "query": "asset snapshot build_index",
+    "expected_trace": "asset-index",
+    "category": "literal"
+  },
+  {
+    "id": "asset-task",
+    "project": "atlas",
+    "query": "Check image inventory after adding new icons",
+    "expected_trace": "asset-index",
+    "category": "paraphrase"
+  },
+  {
+    "id": "queue-literal",
+    "project": "dispatch",
+    "query": "queue integration migrate_queue",
+    "expected_trace": "queue-schema",
+    "category": "literal"
+  },
+  {
+    "id": "queue-task",
+    "project": "dispatch",
+    "query": "Validate message persistence following broker layout changes",
+    "expected_trace": "queue-schema",
+    "category": "paraphrase"
+  },
+  {
+    "id": "project-boundary",
+    "project": "other",
+    "query": "locale rendering compile_catalog",
+    "expected_trace": null,
+    "category": "isolation"
+  },
+  {
+    "id": "irrelevant",
+    "project": "atlas",
+    "query": "TLS certificate renewal",
+    "expected_trace": null,
+    "category": "abstention"
+  },
+  {
+    "id": "distractor",
+    "project": "atlas",
+    "query": "locale rendering tests with asset snapshot logs",
+    "expected_trace": "locale-catalog",
+    "category": "distractor"
+  },
+  {
+    "id": "unsafe-proposed",
+    "project": "atlas",
+    "query": "disable assertions hide failures",
+    "expected_trace": null,
+    "category": "review-gate"
+  },
+  {
+    "id": "queue-wrong-project",
+    "project": "atlas",
+    "query": "queue schema migrate_queue",
+    "expected_trace": null,
+    "category": "isolation"
+  },
+  {
+    "id": "empty",
+    "project": "atlas",
+    "query": "",
+    "expected_trace": null,
+    "category": "abstention"
+  }
+]

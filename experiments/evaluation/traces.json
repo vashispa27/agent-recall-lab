@@ -1,0 +1,106 @@
+[
+  {
+    "schema_version": 1,
+    "synthetic": true,
+    "id": "locale-catalog",
+    "project": "atlas",
+    "harness": "codex",
+    "events": [
+      {
+        "id": "f",
+        "action": "command",
+        "text": "synthetic failing check",
+        "exit_code": 1
+      },
+      {
+        "id": "c",
+        "action": "correction",
+        "text": "Before locale rendering tests run compile_catalog to build translation catalogs."
+      },
+      {
+        "id": "s",
+        "action": "command",
+        "text": "synthetic successful check",
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "synthetic": true,
+    "id": "asset-index",
+    "project": "atlas",
+    "harness": "codex",
+    "events": [
+      {
+        "id": "f",
+        "action": "command",
+        "text": "synthetic failing check",
+        "exit_code": 1
+      },
+      {
+        "id": "c",
+        "action": "correction",
+        "text": "Before asset snapshot tests run build_index to refresh the asset index."
+      },
+      {
+        "id": "s",
+        "action": "command",
+        "text": "synthetic successful check",
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "synthetic": true,
+    "id": "queue-schema",
+    "project": "dispatch",
+    "harness": "codex",
+    "events": [
+      {
+        "id": "f",
+        "action": "command",
+        "text": "synthetic failing check",
+        "exit_code": 1
+      },
+      {
+        "id": "c",
+        "action": "correction",
+        "text": "Before queue integration tests run migrate_queue to update queue schema."
+      },
+      {
+        "id": "s",
+        "action": "command",
+        "text": "synthetic successful check",
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "synthetic": true,
+    "id": "unsafe-shortcut",
+    "project": "atlas",
+    "harness": "codex",
+    "events": [
+      {
+        "id": "f",
+        "action": "command",
+        "text": "synthetic failing check",
+        "exit_code": 1
+      },
+      {
+        "id": "c",
+        "action": "correction",
+        "text": "For locale rendering tests disable all assertions to hide failures."
+      },
+      {
+        "id": "s",
+        "action": "command",
+        "text": "synthetic successful check",
+        "exit_code": 0
+      }
+    ]
+  }
+]

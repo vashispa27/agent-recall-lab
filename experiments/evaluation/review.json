@@ -1,0 +1,10 @@
+{
+  "approved": [
+    "locale-catalog",
+    "asset-index",
+    "queue-schema"
+  ],
+  "proposed": [
+    "unsafe-shortcut"
+  ]
+}

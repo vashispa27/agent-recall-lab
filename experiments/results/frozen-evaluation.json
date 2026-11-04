@@ -1,0 +1,166 @@
+{
+  "evidence_type": "synthetic_retrieval_only",
+  "retriever": "unchanged lexical overlap; default limit 5",
+  "input_sha256": {
+    "review.json": "ba7c7c26b08db5d2cee821391833d3a525d95f81cd9a3d02d5677c926d302e5a",
+    "tasks.json": "9f9c39d3ea248a82a9a3e9d3cc989be3ec92474abb3cdf09f6f881611cbf9413",
+    "traces.json": "65041de148d4efc16332094d05ba254caf4dffcc28b26e6c1ac84946fe203796"
+  },
+  "cases": [
+    {
+      "id": "locale-literal",
+      "project": "atlas",
+      "query": "locale rendering compile_catalog",
+      "expected_trace": "locale-catalog",
+      "category": "literal",
+      "ranked_traces": [
+        "locale-catalog"
+      ],
+      "predicted_trace": "locale-catalog",
+      "correct": true
+    },
+    {
+      "id": "locale-task",
+      "project": "atlas",
+      "query": "Verify translated pages after changing language resources",
+      "expected_trace": "locale-catalog",
+      "category": "paraphrase",
+      "ranked_traces": [],
+      "predicted_trace": null,
+      "correct": false
+    },
+    {
+      "id": "asset-literal",
+      "project": "atlas",
+      "query": "asset snapshot build_index",
+      "expected_trace": "asset-index",
+      "category": "literal",
+      "ranked_traces": [
+        "asset-index"
+      ],
+      "predicted_trace": "asset-index",
+      "correct": true
+    },
+    {
+      "id": "asset-task",
+      "project": "atlas",
+      "query": "Check image inventory after adding new icons",
+      "expected_trace": "asset-index",
+      "category": "paraphrase",
+      "ranked_traces": [],
+      "predicted_trace": null,
+      "correct": false
+    },
+    {
+      "id": "queue-literal",
+      "project": "dispatch",
+      "query": "queue integration migrate_queue",
+      "expected_trace": "queue-schema",
+      "category": "literal",
+      "ranked_traces": [
+        "queue-schema"
+      ],
+      "predicted_trace": "queue-schema",
+      "correct": true
+    },
+    {
+      "id": "queue-task",
+      "project": "dispatch",
+      "query": "Validate message persistence following broker layout changes",
+      "expected_trace": "queue-schema",
+      "category": "paraphrase",
+      "ranked_traces": [],
+      "predicted_trace": null,
+      "correct": false
+    },
+    {
+      "id": "project-boundary",
+      "project": "other",
+      "query": "locale rendering compile_catalog",
+      "expected_trace": null,
+      "category": "isolation",
+      "ranked_traces": [],
+      "predicted_trace": null,
+      "correct": true
+    },
+    {
+      "id": "irrelevant",
+      "project": "atlas",
+      "query": "TLS certificate renewal",
+      "expected_trace": null,
+      "category": "abstention",
+      "ranked_traces": [],
+      "predicted_trace": null,
+      "correct": true
+    },
+    {
+      "id": "distractor",
+      "project": "atlas",
+      "query": "locale rendering tests with asset snapshot logs",
+      "expected_trace": "locale-catalog",
+      "category": "distractor",
+      "ranked_traces": [
+        "locale-catalog",
+        "asset-index"
+      ],
+      "predicted_trace": "locale-catalog",
+      "correct": true
+    },
+    {
+      "id": "unsafe-proposed",
+      "project": "atlas",
+      "query": "disable assertions hide failures",
+      "expected_trace": null,
+      "category": "review-gate",
+      "ranked_traces": [],
+      "predicted_trace": null,
+      "correct": true
+    },
+    {
+      "id": "queue-wrong-project",
+      "project": "atlas",
+      "query": "queue schema migrate_queue",
+      "expected_trace": null,
+      "category": "isolation",
+      "ranked_traces": [],
+      "predicted_trace": null,
+      "correct": true
+    },
+    {
+      "id": "empty",
+      "project": "atlas",
+      "query": "",
+      "expected_trace": null,
+      "category": "abstention",
+      "ranked_traces": [],
+      "predicted_trace": null,
+      "correct": true
+    }
+  ],
+  "by_category": {
+    "abstention": {
+      "correct": 2,
+      "total": 2
+    },
+    "distractor": {
+      "correct": 1,
+      "total": 1
+    },
+    "isolation": {
+      "correct": 2,
+      "total": 2
+    },
+    "literal": {
+      "correct": 3,
+      "total": 3
+    },
+    "paraphrase": {
+      "correct": 0,
+      "total": 3
+    },
+    "review-gate": {
+      "correct": 1,
+      "total": 1
+    }
+  }
+}

@@ -67,6 +67,9 @@ flowchart LR
 
 ## Experiments and limits
 
+[Fixed evaluation](experiments/results/frozen-evaluation.md) adds a separate hashed
+synthetic task set with per-case rankings and retained paraphrase misses.
+
 [Recall integration findings](experiments/results/recall-integration-findings.md) connect
 the protocol, hook and disposable execution evidence, with a runnable comparison and
 an explicit account of what remains unmeasured.
