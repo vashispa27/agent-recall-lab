@@ -67,6 +67,9 @@ flowchart LR
 
 ## Experiments and limits
 
+[Conflicting-memory stress cases](experiments/results/retrieval-stress.md) retain
+duplicate, distractor, stale and harmful approved retrieval failures.
+
 [Reviewed applicability comparison](experiments/results/applicability-comparison.md)
 adds opt-in context matching, with a retained negation false positive.
 
