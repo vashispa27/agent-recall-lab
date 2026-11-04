@@ -67,6 +67,9 @@ flowchart LR
 
 ## Experiments and limits
 
+[Retrieval findings](experiments/results/retrieval-findings.md) compare exact configurations,
+ablations and retained failures, with separate retrieval and execution denominators.
+
 [Conflicting-memory stress cases](experiments/results/retrieval-stress.md) retain
 duplicate, distractor, stale and harmful approved retrieval failures.
 

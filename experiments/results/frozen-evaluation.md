@@ -26,6 +26,6 @@ measure harm from an approved incorrect lesson. The distractor result is only on
 
 This is retrieval-only evidence: no scripts from traces execute, no local action
 outcomes are scored and no live model is called. The existing disposable execution
-comparison remains a separate experiment. Semantic duplicate, stale-memory and
-approved harmful-retrieval comparisons remain incomplete. After inspection these
+comparison remains a separate experiment. Separate [stress cases](retrieval-stress.md) now cover duplicate, stale and harmful
+approved retrieval; those cases are outside this fixed set. After inspection these
 cases are exposed regression data, not an unseen holdout for future tuning claims.
