@@ -67,6 +67,9 @@ flowchart LR
 
 ## Experiments and limits
 
+[Reviewed applicability comparison](experiments/results/applicability-comparison.md)
+adds opt-in context matching, with a retained negation false positive.
+
 [Fixed evaluation](experiments/results/frozen-evaluation.md) adds a separate hashed
 synthetic task set with per-case rankings and retained paraphrase misses.
 

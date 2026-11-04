@@ -249,7 +249,9 @@ class Store:
             for row in self.db.execute("SELECT * FROM memories WHERE state=? ORDER BY id", (state,))
         ]
 
-    def search(self, project: str, query: str, limit: int = 5) -> list[dict]:
+    def search(
+        self, project: str, query: str, limit: int = 5, *, include_applicability: bool = False
+    ) -> list[dict]:
         if not project.strip() or limit < 1:
             raise ValueError("A project and positive limit are required")
         terms = tokenize(query)
@@ -260,9 +262,13 @@ class Store:
             "SELECT * FROM memories WHERE project=? AND state='approved'", (project,)
         ):
             item = dict(row)
-            score = len(terms & tokenize(item["body"])) / len(terms)
+            revision = self._revision(item["id"])
+            text = item["body"]
+            if include_applicability and revision:
+                text += " " + revision["applicability"]
+            score = len(terms & tokenize(text)) / len(terms)
             if score:
-                if revision := self._revision(item["id"]):
+                if revision:
                     item["revision"] = revision
                 item["score"] = score
                 item["evidence"] = json.loads(item["evidence"])

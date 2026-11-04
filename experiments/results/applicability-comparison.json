@@ -1,0 +1,125 @@
+{
+  "evidence_type": "synthetic retrieval only",
+  "source_sha256": "0390e8ac339e700810a24d6a1d3e034c3b6a81306ebf5265a0e3e4a4f16bb147",
+  "proposed_context_excluded": true,
+  "cases": [
+    {
+      "case": "body-match",
+      "project": "storefront",
+      "query": "Generate current client",
+      "expected_hit": true,
+      "mode": "body",
+      "ranked_ids": [
+        "f1f82afc0bbc627d"
+      ],
+      "correct": true
+    },
+    {
+      "case": "body-match",
+      "project": "storefront",
+      "query": "Generate current client",
+      "expected_hit": true,
+      "mode": "body+applicability",
+      "ranked_ids": [
+        "f1f82afc0bbc627d"
+      ],
+      "correct": true
+    },
+    {
+      "case": "task-context",
+      "project": "storefront",
+      "query": "checkout contract verification",
+      "expected_hit": true,
+      "mode": "body",
+      "ranked_ids": [],
+      "correct": false
+    },
+    {
+      "case": "task-context",
+      "project": "storefront",
+      "query": "checkout contract verification",
+      "expected_hit": true,
+      "mode": "body+applicability",
+      "ranked_ids": [
+        "f1f82afc0bbc627d"
+      ],
+      "correct": true
+    },
+    {
+      "case": "command-context",
+      "project": "storefront",
+      "query": "verify_contract.py",
+      "expected_hit": true,
+      "mode": "body",
+      "ranked_ids": [],
+      "correct": false
+    },
+    {
+      "case": "command-context",
+      "project": "storefront",
+      "query": "verify_contract.py",
+      "expected_hit": true,
+      "mode": "body+applicability",
+      "ranked_ids": [
+        "f1f82afc0bbc627d"
+      ],
+      "correct": true
+    },
+    {
+      "case": "negated-context",
+      "project": "storefront",
+      "query": "avoid checkout contract verification",
+      "expected_hit": false,
+      "mode": "body",
+      "ranked_ids": [],
+      "correct": true
+    },
+    {
+      "case": "negated-context",
+      "project": "storefront",
+      "query": "avoid checkout contract verification",
+      "expected_hit": false,
+      "mode": "body+applicability",
+      "ranked_ids": [
+        "f1f82afc0bbc627d"
+      ],
+      "correct": false
+    },
+    {
+      "case": "wrong-project",
+      "project": "billing",
+      "query": "checkout contract verification",
+      "expected_hit": false,
+      "mode": "body",
+      "ranked_ids": [],
+      "correct": true
+    },
+    {
+      "case": "wrong-project",
+      "project": "billing",
+      "query": "checkout contract verification",
+      "expected_hit": false,
+      "mode": "body+applicability",
+      "ranked_ids": [],
+      "correct": true
+    },
+    {
+      "case": "unrelated",
+      "project": "storefront",
+      "query": "certificate renewal",
+      "expected_hit": false,
+      "mode": "body",
+      "ranked_ids": [],
+      "correct": true
+    },
+    {
+      "case": "unrelated",
+      "project": "storefront",
+      "query": "certificate renewal",
+      "expected_hit": false,
+      "mode": "body+applicability",
+      "ranked_ids": [],
+      "correct": true
+    }
+  ]
+}
