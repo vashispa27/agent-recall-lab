@@ -1,0 +1,36 @@
+{
+  "evidence": "synthetic export, scripted operator review, actual CLI and stdio MCP",
+  "dataset_sha256": "baede500714ddfe82a268f5ea45dd8d6e9ec4243f5197e447159047db8a2ffb4",
+  "capture": {
+    "inserted": 1
+  },
+  "distill": {
+    "candidates_created": 1
+  },
+  "evidence_item_ids": [
+    "item1",
+    "item2",
+    "item3"
+  ],
+  "trace_command_sentinel_created": false,
+  "cases": [
+    {
+      "phase": "candidate",
+      "project": "analytics",
+      "retrieved_count": 0,
+      "source_access": "denied"
+    },
+    {
+      "phase": "approved",
+      "project": "analytics",
+      "retrieved_count": 1,
+      "source_access": "allowed"
+    },
+    {
+      "phase": "approved",
+      "project": "unrelated",
+      "retrieved_count": 0,
+      "source_access": "denied"
+    }
+  ]
+}
