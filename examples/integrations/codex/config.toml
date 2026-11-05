@@ -1,0 +1,3 @@
+[mcp_servers.project_recall]
+command = "/absolute/path/to/agent-recall-lab/.venv/bin/python"
+args = ["-m", "recall_lab.mcp_server", "--db", "/absolute/path/to/memory.db", "--project", "storefront"]

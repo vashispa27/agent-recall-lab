@@ -5,6 +5,7 @@ import asyncio
 import hashlib
 import json
 import sys
+import tomllib
 from datetime import timedelta
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -33,10 +34,13 @@ async def evaluate():
         store.ingest(trace)
         store.distill()
         candidate = store.list_memories()[0]
-        parameters = StdioServerParameters(
-            command=sys.executable,
-            args=["-m", "recall_lab.mcp_server", "--db", str(db), "--project", trace["project"]],
-        )
+        template = ROOT / "examples/integrations/codex/config.toml"
+        config = tomllib.loads(template.read_text())["mcp_servers"]["project_recall"]
+        args = [
+            {"/absolute/path/to/memory.db": str(db), "storefront": trace["project"]}.get(arg, arg)
+            for arg in config["args"]
+        ]
+        parameters = StdioServerParameters(command=sys.executable, args=args, cwd=directory)
         try:
             async with (
                 stdio_client(parameters) as (read, write),
