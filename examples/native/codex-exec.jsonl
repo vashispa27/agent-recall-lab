@@ -1,0 +1,6 @@
+{"type": "thread.started", "thread_id": "invented-analytics-thread"}
+{"type": "turn.started"}
+{"type": "item.completed", "item": {"id": "item1", "type": "command_execution", "command": "touch sentinel && pytest", "aggregated_output": "ModuleNotFoundError (invented) token=fixture-value", "exit_code": 1, "status": "failed"}}
+{"type": "item.completed", "item": {"id": "item2", "type": "agent_message", "text": "Use uv run pytest from the analytics project root to use the installed package."}}
+{"type": "item.completed", "item": {"id": "item3", "type": "command_execution", "command": "uv run pytest", "aggregated_output": "Tests passed (invented outcome)", "exit_code": 0, "status": "completed"}}
+{"type": "turn.completed", "usage": {"input_tokens": 0, "cached_input_tokens": 0, "output_tokens": 0, "reasoning_output_tokens": 0}}

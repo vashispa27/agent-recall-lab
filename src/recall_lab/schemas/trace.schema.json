@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Synthetic canonical trace v1",
+  "title": "Canonical trace v1",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "synthetic", "id", "project", "harness", "events"],
   "properties": {
     "schema_version": {"type": "integer", "const": 1},
-    "synthetic": {"type": "boolean", "const": true},
+    "synthetic": {"type": "boolean"},
     "id": {"$ref": "#/$defs/identifier"},
     "project": {"$ref": "#/$defs/identifier"},
     "harness": {"$ref": "#/$defs/identifier"},
@@ -14,7 +14,7 @@
       "type": "object", "additionalProperties": false,
       "required": ["adapter", "source_sha256"],
       "properties": {
-        "adapter": {"enum": ["claude-subset-v1", "codex-subset-v1"]},
+        "adapter": {"enum": ["claude-subset-v1", "codex-subset-v1", "codex-exec-jsonl-v1"]},
         "source_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
       }
     },
@@ -33,6 +33,14 @@
         "then": {"required": ["exit_code"]},
         "else": {"not": {"required": ["exit_code"]}}
       }
+    }
+  },
+  "if": {"properties": {"synthetic": {"const": false}}},
+  "then": {
+    "required": ["provenance"],
+    "properties": {
+      "harness": {"const": "codex"},
+      "provenance": {"properties": {"adapter": {"const": "codex-exec-jsonl-v1"}}}
     }
   },
   "$defs": {

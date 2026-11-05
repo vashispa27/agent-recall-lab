@@ -13,6 +13,7 @@ not affiliated with Asymptote Labs. Python 3.11+, SQLite, reproducible synthetic
   and duplicate detection.
 - Explicitly synthetic [Claude/Codex format subsets](examples/native/README.md) with
   source hashes, matched tool results, and strict rejection of unsupported records.
+- [Opt-in local JSONL export import](docs/capture.md) for a bounded Codex exec subset.
 - SQLite storage of traces, evidence-linked candidates, and explicitly reviewed memories.
 - An [evidence-linked extraction interface](docs/extraction.md), deterministic provider,
   durable provider/source metadata, and project-scoped source inspection; **not LLM extraction**.
@@ -50,7 +51,7 @@ Direct store ingestion applies the same validation and redaction. See the
 [canonical schema](src/recall_lab/schemas/trace.schema.json) and
 [reproducible import checks](experiments/results/ingestion-contract.md).
 
-Every trace is invented. Fixture commands are evidence text and never executed.
+Every bundled trace is invented. Fixture commands are evidence text and never executed.
 The redactor is a small baseline, not a comprehensive secret detector.
 
 ## Architecture

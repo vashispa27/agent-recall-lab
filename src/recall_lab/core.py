@@ -1,4 +1,4 @@
-"""Canonical synthetic traces and a durable, review-gated memory store.
+"""Canonical traces and a durable, review-gated memory store.
 
 Capture data is untrusted evidence. It is never executed by this module.
 """
@@ -42,7 +42,7 @@ def validate_trace(trace: object) -> dict:
     return normalized
 
 
-def read_json(path: Path) -> object:
+def parse_json(text: str) -> object:
     def unique_keys(pairs):
         result = {}
         for key, value in pairs:
@@ -51,7 +51,11 @@ def read_json(path: Path) -> object:
             result[key] = value
         return result
 
-    return json.loads(path.read_text(), object_pairs_hook=unique_keys)
+    return json.loads(text, object_pairs_hook=unique_keys)
+
+
+def read_json(path: Path) -> object:
+    return parse_json(path.read_text())
 
 
 def load_trace(path: Path) -> dict:

@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 
 from recall_lab.adapters import load_native_trace
+from recall_lab.capture import load_codex_export
 from recall_lab.core import Store, load_trace
 
 
@@ -13,6 +14,11 @@ def main():
     ingest = commands.add_parser("ingest")
     ingest.add_argument("paths", nargs="+", type=Path)
     ingest.add_argument("--format", choices=["canonical", "claude", "codex"], default="canonical")
+    capture = commands.add_parser("capture", help="Import one saved Codex exec JSONL export")
+    capture.add_argument("path", type=Path)
+    capture.add_argument("--project", required=True)
+    capture.add_argument("--correction", action="append", default=[], metavar="ITEM_ID")
+    capture.add_argument("--synthetic", action="store_true", help="Label invented fixture input")
     commands.add_parser("distill")
     listing = commands.add_parser("list")
     listing.add_argument(
@@ -42,6 +48,12 @@ def main():
                 else (lambda path: load_native_trace(path, args.format))
             )
             result = {"inserted": store.ingest_batch(loader(path) for path in args.paths)}
+        elif args.command == "capture":
+            try:
+                trace = load_codex_export(args.path, args.project, args.correction, args.synthetic)
+                result = {"inserted": int(store.ingest(trace))}
+            except (OSError, ValueError, RecursionError) as error:
+                capture.error(f"Capture rejected ({type(error).__name__}). See docs/capture.md.")
         elif args.command == "distill":
             result = {"candidates_created": store.distill()}
         elif args.command == "list":
