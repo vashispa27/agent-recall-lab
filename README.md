@@ -31,6 +31,18 @@ local Python checks with scripted prerequisite decisions. Full native-session in
 is not implemented yet.
 The controlled loop uses scripted callbacks; it does not establish live-agent behavior.
 
+## Run the capture-to-recall demo
+
+```bash
+uv sync --locked --extra dev
+uv run python experiments/capture_recall.py --check
+```
+
+The demo imports a synthetic export into a disposable database and checks what fresh
+MCP sessions can retrieve before and after explicit approval. See the
+[release validation report](experiments/results/release-validation.md) for the architecture,
+setup links, reproduced results, and known limits.
+
 ## Run
 
 ```bash
@@ -59,12 +71,12 @@ The redactor is a small baseline, not a comprehensive secret detector.
 
 ```mermaid
 flowchart LR
-  T[Synthetic traces] --> V[Validate and redact]
+  T[Explicit trace or JSONL import] --> V[Validate and redact]
   V --> S[SQLite traces]
-  S --> C[Correction candidates]
+  S --> C[Evidence-linked candidates]
   C --> R[Explicit review]
   R --> M[Approved memory]
-  M --> Q[Project-scoped retrieval]
+  M --> Q[Project-scoped CLI or MCP recall]
 ```
 
 ## Experiments and limits
